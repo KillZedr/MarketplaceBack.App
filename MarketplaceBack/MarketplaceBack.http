@@ -1,0 +1,6 @@
+@MarketplaceBack_HostAddress = http://localhost:5084
+
+GET {{MarketplaceBack_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
