@@ -3,7 +3,7 @@ using Marketplace.BLL.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MarketplaceBack.Controllers
+namespace MarketplaceBack.Controllers.Identity
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -55,7 +55,7 @@ namespace MarketplaceBack.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal Server Error: {ex.Message}"); 
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
         }
     }

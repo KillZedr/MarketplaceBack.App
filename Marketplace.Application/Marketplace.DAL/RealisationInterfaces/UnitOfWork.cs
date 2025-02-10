@@ -38,7 +38,7 @@ namespace Marketplace.Application.Marketplace.DAL.RealisationInterfaces
             return _dbContext.Set<TEntity>().IncludeAll(includes);
         }
 
-        public Task<int> SaveShangesAsync()
+        public Task<int> SaveChangesAsync()
         {
             return _dbContext.SaveChangesAsync();
         }

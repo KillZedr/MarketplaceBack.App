@@ -14,7 +14,7 @@ namespace Marketplace.Application.Marketplace.DAL.Contracts
         IDbContextTransaction BeginTransaction();
 
         IRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IEntity;
-        Task<int> SaveShangesAsync();
+        Task<int> SaveChangesAsync();
         IQueryable<TEntity> GetAllIncluding<TEntity>(params Expression<Func<TEntity, object>>[] includes) where TEntity : class;
     }
 }

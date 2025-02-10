@@ -4,7 +4,7 @@ using Marketplace.Domain.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MarketplaceBack.Controllers
+namespace MarketplaceBack.Controllers.Identity
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -73,7 +73,7 @@ namespace MarketplaceBack.Controllers
         }
 
 
-            [HttpDelete("delete/{id}")]
+        [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteUser(string id)
         {
             var result = await _userService.DeleteUserAsync(id);

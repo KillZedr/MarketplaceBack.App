@@ -83,7 +83,7 @@ namespace Marketplace.BLL.Service.Identity
             var repoCart = _unitOfWork.GetRepository<Cart>();
             repoCart.Create(userCart);
             
-            await _unitOfWork.SaveShangesAsync();
+            await _unitOfWork.SaveChangesAsync();
 
             newUser.ActiveCart = userCart;
             var updateUserResult = await _userManager.UpdateAsync(newUser);
@@ -104,7 +104,7 @@ namespace Marketplace.BLL.Service.Identity
             if (userCart != null)
             {
                 _unitOfWork.GetRepository<Cart>().Delete(userCart);
-                await _unitOfWork.SaveShangesAsync();
+                await _unitOfWork.SaveChangesAsync();
             }
 
             return await _userManager.DeleteAsync(user);
