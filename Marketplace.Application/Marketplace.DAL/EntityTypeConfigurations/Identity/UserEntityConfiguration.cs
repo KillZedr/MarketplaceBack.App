@@ -31,7 +31,7 @@ namespace Marketplace.Application.Marketplace.DAL.EntityTypeConfigurations.Ident
 
           
 
-            builder.Property(u => u.Сountry)
+            builder.Property(u => u.Country)
                 .HasMaxLength(100);
 
             builder.Property(u => u.Address)
@@ -48,13 +48,14 @@ namespace Marketplace.Application.Marketplace.DAL.EntityTypeConfigurations.Ident
 
 
             builder.HasOne(u => u.ActiveCart)
-                 .WithOne()
+                 .WithOne(c => c.User)
                  .HasForeignKey<Cart>(c => c.UserId)
-                 .OnDelete(DeleteBehavior.Restrict);
+                 .OnDelete(DeleteBehavior.Restrict)
+                 .IsRequired(false);
 
             builder.HasMany(u => u.PaidCarts)
-                .WithOne(c => c.User)
-                .HasForeignKey(c => c.UserId)
+                .WithOne(pc => pc.User)
+                .HasForeignKey(pc => pc.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
 

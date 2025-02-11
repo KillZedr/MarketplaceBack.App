@@ -1,4 +1,5 @@
 ﻿using Marketplace.Domain.ECommerce;
+using Marketplace.Domain.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -17,19 +18,21 @@ namespace Marketplace.Application.Marketplace.DAL.EntityTypeConfigurations.EComm
 
 
             builder.HasOne(c => c.User)
-                .WithMany(u => u.PaidCarts)
-                .HasForeignKey(c => c.UserId)
+                .WithOne(u => u.ActiveCart)
+                .HasForeignKey<Cart>(c => c.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-
             builder.HasMany(c => c.CartItems)
-                .WithOne(ci => ci.Cart) 
-                .HasForeignKey(ci => ci.CartId) 
-                .OnDelete(DeleteBehavior.Cascade); 
+                .WithOne(ci => ci.Cart)
+                .HasForeignKey(ci => ci.CartId)
+                .OnDelete(DeleteBehavior.Cascade);
 
-       
+            builder.Property(c => c.IsActive)
+            .IsRequired()
+            .HasDefaultValue(true);
+
             builder.Property(c => c.IsPaid)
-                .IsRequired() 
+                .IsRequired()
                 .HasDefaultValue(false);
 
             builder.Property(c => c.CreatedAt)
@@ -40,12 +43,13 @@ namespace Marketplace.Application.Marketplace.DAL.EntityTypeConfigurations.EComm
                 .IsRequired(false);
 
             builder.HasOne(c => c.PaidCart)
-                .WithOne(pc => pc.Cart)  
-                .HasForeignKey<PaidCart>(pc => pc.CartId);
+                .WithOne(pc => pc.Cart)
+                .HasForeignKey<PaidCart>(pc => pc.CartId)
+                .OnDelete(DeleteBehavior.SetNull);
 
 
             builder.HasIndex(c => c.UserId);
-
+            
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Marketplace.BLL.Contracts.Identity;
-using Marketplace.BLL.DTOs;
+using Marketplace.BLL.DTOs.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

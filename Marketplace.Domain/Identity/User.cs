@@ -14,7 +14,7 @@ namespace Marketplace.Domain.Identity
         public required string LastName { get; set; }
         public required string Email { get; set; }
         public required string Password { get; set; }
-        public string? Сountry { get; set; }
+        public string? Country { get; set; }
         public string? Address { get; set; }
         public string? PhoneNumber { get; set; }
 
@@ -23,7 +23,7 @@ namespace Marketplace.Domain.Identity
         public bool IsActive { get; set; } = true;
 
         public virtual Cart? ActiveCart { get; set; } 
-        public virtual IEnumerable<Cart> PaidCarts { get; set; } = new List<Cart>();
+        public virtual IEnumerable<PaidCart> PaidCarts { get; set; } = new List<PaidCart>();
 
     }
 }

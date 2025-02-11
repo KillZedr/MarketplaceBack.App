@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Marketplace.BLL.DTOs
+namespace Marketplace.BLL.DTOs.Products
 {
     public class CreateProductDto
     {

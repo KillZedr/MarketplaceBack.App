@@ -14,11 +14,18 @@ namespace Marketplace.Application.Marketplace.DAL.EntityTypeConfigurations.EComm
         public void Configure(EntityTypeBuilder<PaidCart> builder)
         {
             builder.HasKey(pc => pc.Identifier);
+            
 
- 
+
             builder.HasOne(pc => pc.Cart)
-                .WithOne(c => c.PaidCart)  
-                .HasForeignKey<PaidCart>(pc => pc.CartId);
+                .WithOne(c => c.PaidCart)
+                .HasForeignKey<PaidCart>(pc => pc.CartId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(pc => pc.User)
+                .WithMany(u => u.PaidCarts)
+                .HasForeignKey(pc => pc.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             // Свойства
             builder.Property(pc => pc.PaidAt)

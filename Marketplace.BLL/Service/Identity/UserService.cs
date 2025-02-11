@@ -1,6 +1,6 @@
 ﻿using Marketplace.Application.Marketplace.DAL.Contracts;
 using Marketplace.BLL.Contracts.Identity;
-using Marketplace.BLL.DTOs;
+using Marketplace.BLL.DTOs.Identity;
 using Marketplace.Domain.ECommerce;
 using Marketplace.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
@@ -114,7 +114,8 @@ namespace Marketplace.BLL.Service.Identity
         {
             return await _userManager.Users
                 .Include(u => u.ActiveCart)  
-                .Include(u => u.PaidCarts)   
+                .Include(u => u.PaidCarts)
+                .Include(u => u.ActiveCart.CartItems)
                 .ToListAsync();
         }
 
@@ -122,7 +123,8 @@ namespace Marketplace.BLL.Service.Identity
         {
             return await _userManager.Users
                 .Include(u => u.ActiveCart) 
-                .Include(u => u.PaidCarts)   
+                .Include(u => u.PaidCarts)
+                .Include(u => u.ActiveCart.CartItems)
                 .FirstOrDefaultAsync(u => u.Email == email);
 
         }
@@ -131,7 +133,8 @@ namespace Marketplace.BLL.Service.Identity
         {
             return await _userManager.Users
                 .Include(u => u.ActiveCart)  
-                .Include(u => u.PaidCarts)   
+                .Include(u => u.PaidCarts)
+                .Include(u => u.ActiveCart.CartItems)
                 .FirstOrDefaultAsync(u => u.Id == id);
         }
 
@@ -154,7 +157,7 @@ namespace Marketplace.BLL.Service.Identity
                 existingUser.Address = user.Address;
 
             if (!string.IsNullOrEmpty(user.Country))
-                existingUser.Сountry = user.Country;
+                existingUser.Country = user.Country;
 
 
             return await _userManager.UpdateAsync(existingUser);

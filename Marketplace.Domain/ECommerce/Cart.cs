@@ -17,5 +17,6 @@ namespace Marketplace.Domain.ECommerce
         public DateTime? PaidAt { get; set; }
 
         public virtual PaidCart? PaidCart { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 }

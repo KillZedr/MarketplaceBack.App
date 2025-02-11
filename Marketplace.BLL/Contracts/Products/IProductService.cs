@@ -1,4 +1,4 @@
-﻿using Marketplace.BLL.DTOs;
+﻿using Marketplace.BLL.DTOs.Products;
 using Marketplace.Domain.Products.Entity;
 using System;
 using System.Collections.Generic;

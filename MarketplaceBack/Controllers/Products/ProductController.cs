@@ -1,5 +1,5 @@
 ﻿using Marketplace.BLL.Contracts.Products;
-using Marketplace.BLL.DTOs;
+using Marketplace.BLL.DTOs.Products;
 using Marketplace.Domain.Products.Entity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

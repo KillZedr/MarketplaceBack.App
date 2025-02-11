@@ -1,4 +1,4 @@
-﻿using Marketplace.BLL.DTOs;
+﻿using Marketplace.BLL.DTOs.Identity;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;

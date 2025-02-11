@@ -1,6 +1,6 @@
 ﻿using Marketplace.Application.Marketplace.DAL.Contracts;
 using Marketplace.BLL.Contracts.Products;
-using Marketplace.BLL.DTOs;
+using Marketplace.BLL.DTOs.Products;
 using Marketplace.Domain.Products.Entity;
 using Microsoft.EntityFrameworkCore;
 using System;

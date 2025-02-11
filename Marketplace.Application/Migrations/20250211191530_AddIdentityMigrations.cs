@@ -63,7 +63,7 @@ namespace Marketplace.Application.Migrations
                     LastName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     Password = table.Column<string>(type: "text", nullable: false),
-                    Сountry = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    Country = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
                     Address = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
                     PhoneNumber = table.Column<string>(type: "character varying(15)", maxLength: 15, nullable: true),
                     RegisteredAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
@@ -146,11 +146,11 @@ namespace Marketplace.Application.Migrations
                 {
                     Identifier = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserId = table.Column<string>(type: "text", nullable: false),
+                    UserId = table.Column<string>(type: "text", nullable: true),
                     IsPaid = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
                     PaidAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    UserId1 = table.Column<string>(type: "text", nullable: true)
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true)
                 },
                 constraints: table =>
                 {
@@ -161,11 +161,6 @@ namespace Marketplace.Application.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Cart_Users_UserId1",
-                        column: x => x.UserId1,
-                        principalTable: "Users",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -310,7 +305,8 @@ namespace Marketplace.Application.Migrations
                     PaidAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
                     TotalAmount = table.Column<decimal>(type: "numeric(6,2)", nullable: false),
                     PaymentMethod = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
-                    TransactionId = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
+                    TransactionId = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    UserId = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -321,18 +317,18 @@ namespace Marketplace.Application.Migrations
                         principalTable: "Cart",
                         principalColumn: "Identifier",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PaidCart_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cart_UserId",
                 table: "Cart",
                 column: "UserId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Cart_UserId1",
-                table: "Cart",
-                column: "UserId1",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -362,6 +358,11 @@ namespace Marketplace.Application.Migrations
                 table: "PaidCart",
                 column: "CartId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PaidCart_UserId",
+                table: "PaidCart",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Product_CategoryId",

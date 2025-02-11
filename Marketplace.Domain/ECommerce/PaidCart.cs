@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Marketplace.Domain.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,8 @@ namespace Marketplace.Domain.ECommerce
         public required DateTime PaidAt { get; set; } = DateTime.UtcNow;
         public required decimal TotalAmount { get; set; } 
         public string PaymentMethod { get; set; } = string.Empty; 
-        public string TransactionId { get; set; } = string.Empty; 
+        public string TransactionId { get; set; } = string.Empty;
+        public required string UserId { get; set; }
+        public virtual User User { get; set; } = null!;
     }
 }

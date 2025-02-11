@@ -35,6 +35,11 @@ namespace Marketplace.Application.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(true);
+
                     b.Property<bool>("IsPaid")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("boolean")
@@ -44,18 +49,11 @@ namespace Marketplace.Application.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("UserId1")
                         .HasColumnType("text");
 
                     b.HasKey("Identifier");
 
                     b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.HasIndex("UserId1")
                         .IsUnique();
 
                     b.ToTable("Cart");
@@ -118,10 +116,16 @@ namespace Marketplace.Application.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Identifier");
 
                     b.HasIndex("CartId")
                         .IsUnique();
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("PaidCart");
                 });
@@ -141,6 +145,10 @@ namespace Marketplace.Application.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("text");
+
+                    b.Property<string>("Country")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -207,10 +215,6 @@ namespace Marketplace.Application.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
-
-                    b.Property<string>("Сountry")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
 
                     b.HasKey("Id");
 
@@ -489,14 +493,9 @@ namespace Marketplace.Application.Migrations
             modelBuilder.Entity("Marketplace.Domain.ECommerce.Cart", b =>
                 {
                     b.HasOne("Marketplace.Domain.Identity.User", "User")
-                        .WithMany("PaidCarts")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Marketplace.Domain.Identity.User", null)
                         .WithOne("ActiveCart")
-                        .HasForeignKey("Marketplace.Domain.ECommerce.Cart", "UserId1");
+                        .HasForeignKey("Marketplace.Domain.ECommerce.Cart", "UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("User");
                 });
@@ -528,7 +527,15 @@ namespace Marketplace.Application.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Marketplace.Domain.Identity.User", "User")
+                        .WithMany("PaidCarts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Cart");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Marketplace.Domain.Products.Entity.Product", b =>
