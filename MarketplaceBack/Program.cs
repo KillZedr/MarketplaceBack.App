@@ -1,6 +1,8 @@
 
 using Marketplace.Application;
 using Marketplace.BLL;
+using Marketplace.BLL.Settings.Notifications;
+using Marketplace.BLL.Settings.Stripe;
 using Marketplace.Domain.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -76,6 +78,9 @@ namespace MarketplaceBack
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+            
+            builder.Services.Configure<SmtpSetting>(builder.Configuration.GetSection("Smtp"));
+            builder.Services.Configure<StripeSetting>(builder.Configuration.GetSection("Stripe"));
 
             Startup.AddServices(builder);
             

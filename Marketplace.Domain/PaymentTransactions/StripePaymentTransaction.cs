@@ -8,17 +8,21 @@ namespace Marketplace.Domain.PaymentTransactions
 {
     public class StripePaymentTransaction : Entity<int>
     {
-        public string StripeSessionId { get; set; }
-        public string PaymentIntentId { get; set; }
-        public string PaymentStatus { get; set; }
-        public string Currency { get; set; }
-        public long Amount { get; set; }
-        public string? CustomerId { get; set; }
-        public string? PaymentMethod { get; set; }
-        public string? InvoiceId { get; set; }
-        public string? StatusReason { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
-        public string? ClientIp { get; set; }//??
+        public string StripeSessionId { get; set; }    
+        public string PaymentIntentId { get; set; }       
+        public string PaymentStatus { get; set; }     
+        public string Currency { get; set; }            
+        public long Amount { get; set; }          
+        public string? CustomerId { get; set; }       
+        public string? CustomerEmail { get; set; }   
+        public string? PaymentMethod { get; set; }  
+        public string? InvoiceId { get; set; }              
+        public string? StatusReason { get; set; }           
+        public DateTime CreatedAt { get; set; }             
+        public DateTime? UpdatedAt { get; set; }            
+        public string? ClientIp { get; set; }             
+        public string ChargeId { get; set; }
+        public string? UserId { get; set; }
+        public string? CartId { get; set; }
     }
 }
